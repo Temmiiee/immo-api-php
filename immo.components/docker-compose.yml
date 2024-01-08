@@ -11,8 +11,8 @@ services:
     ports:
       - '8080:80'
     volumes:
-      - ../immo-api-php/public:/var/www/html
-      - ../immo-api-php:/var/www
+      - ../public:/var/www/html
+      - ..:/var/www
     working_dir: /var/www/
     networks:
       - immo.net
