@@ -5,14 +5,14 @@ networks:
 
 services:
   ## services API PHP ##
-  immo-api-php : 
+  immo-api-php: 
     image: 'canals/php:8.2'
     env_file : ./.env
     ports:
       - '8080:80'
     volumes:
-      - ../immo-api-php/public:/var/www/html
-      - ../immo-api-php:/var/www
+      - ../public:/var/www/html
+      - ..:/var/www
     working_dir: /var/www/
     networks:
       - immo.net
@@ -21,7 +21,7 @@ services:
 
   ## MySQL service ##
   db:
-    image: mysql:5.7
+    image: mysql:lastest
     volumes:
       - db_data:/var/lib/mysql
     restart: always
@@ -34,3 +34,14 @@ services:
 
 volumes:
   db_data:
+
+
+  #
+  # service administration des bases sql
+  #
+  adminer:
+    image: adminer
+    ports:
+      - '8080:8080'
+    networks:
+      - immo.net
