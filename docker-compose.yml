@@ -5,7 +5,7 @@ networks:
 
 services:
   ## services API PHP ##
-  immo-api-php : 
+  immo-api-php: 
     image: 'canals/php:8.2'
     env_file : ./.env
     ports:
@@ -21,7 +21,7 @@ services:
 
   ## MySQL service ##
   db:
-    image: mysql:5.7
+    image: mysql:lastest
     volumes:
       - db_data:/var/lib/mysql
     restart: always
@@ -42,3 +42,15 @@ services:
 
 volumes:
   db_data:
+
+
+  #
+  # service administration des bases sql
+  #
+  adminer:
+    image: adminer
+    ports:
+      - '8081:8080'
+    networks:
+      - immo.net
+ 
