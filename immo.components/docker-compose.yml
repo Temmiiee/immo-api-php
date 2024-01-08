@@ -1,0 +1,30 @@
+version: '3'
+networks:
+  immo.net:
+    driver: bridge
+
+
+services:
+  ## services API PHP ##
+  immo-api-php : 
+  image: 'canals/php:8.2'
+  env_file : ./immo.env
+  ports:
+    - '8080:80'
+  volumes:
+    - ../immo-api-php/public:/var/www/html
+    - ../immo-api-php:/var/www
+working_dir: /var/www/
+networks:
+depends_on:
+  -
+
+
+
+  ## service administration des bases sql ##
+  adminer:
+    image: adminer
+    ports:
+      - '8080:8080'
+    networks:
+      - 
