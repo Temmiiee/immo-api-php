@@ -3,28 +3,34 @@ networks:
   immo.net:
     driver: bridge
 
-
 services:
   ## services API PHP ##
   immo-api-php : 
-  image: 'canals/php:8.2'
-  env_file : ./immo.env
-  ports:
-    - '8080:80'
-  volumes:
-    - ../immo-api-php/public:/var/www/html
-    - ../immo-api-php:/var/www
-working_dir: /var/www/
-networks:
-depends_on:
-  -
-
-
-
-  ## service administration des bases sql ##
-  adminer:
-    image: adminer
+    image: 'canals/php:8.2'
+    env_file : ./.env
     ports:
-      - '8080:8080'
+      - '8080:80'
+    volumes:
+      - ../immo-api-php/public:/var/www/html
+      - ../immo-api-php:/var/www
+    working_dir: /var/www/
     networks:
-      - 
+      - immo.net
+    depends_on:
+      - db
+
+  ## MySQL service ##
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mydatabase
+      MYSQL_PASSWORD: password
+    networks:
+      - immo.net
+
+volumes:
+  db_data:
