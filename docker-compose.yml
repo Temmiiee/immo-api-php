@@ -9,10 +9,10 @@ services:
     image: 'canals/php:8.2'
     env_file : ./.env
     ports:
-      - '8080:80'
+      - '8081:80'
     volumes:
-      - ../public:/var/www/html
-      - ..:/var/www
+      - ../immo-api-php/public:/var/www/html
+      - ../immo-api-php:/var/www
     working_dir: /var/www/
     networks:
       - immo.net
@@ -21,14 +21,11 @@ services:
 
   ## MySQL service ##
   db:
-    image: mysql:5.7
+    image: mysql:latest
     volumes:
       - db_data:/var/lib/mysql
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mydatabase
-      MYSQL_PASSWORD: password
+    env_file : ./.env
     networks:
       - immo.net
 
@@ -36,7 +33,7 @@ services:
   adminer:
     image: adminer
     ports:
-      - '8081:8080'
+      - '8282:8080'
     networks:
       - immo.net
 
